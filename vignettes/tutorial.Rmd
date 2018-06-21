@@ -1,0 +1,92 @@
+---
+title: "Tutorial: How to Use kwb.resilience"
+author: "Andreas Matzinger"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Install kwb.resilience from GitHub
+
+```{r eval = FALSE}
+# install.packages("devtools")
+
+devtools::install_github("kwb-r/kwb.resilience", dependencies = TRUE)
+```
+
+## Load the package
+
+```{r}
+library("kwb.resilience")
+```
+
+### Have a look at some example data
+
+```{r}
+head(oxygen)
+```
+
+### Severity and resilience (example for scenario 4)
+
+```{r}
+Sev.S4 <- resilience.severity(
+  time_stamp = oxygen$timestamp, 
+  Pt = oxygen$S4_red_Imp_Surface, 
+  Pa = 2, 
+  Pmax = 0
+)
+
+# Use another method of integral calculation (loop -> vector calculation)
+Sev.S4.control <- resilience.severity(
+  time_stamp = oxygen$timestamp, 
+  Pt = oxygen$S4_red_Imp_Surface, 
+  Pa = 2, 
+  Pmax = 0,
+  integral_method = 2
+)
+
+# Both methods should return the same!
+stopifnot(identical(Sev.S4, Sev.S4.control))
+
+Res0.S4 <- 1 - Sev.S4
+```
+
+### Resilience indices separate for each event (example for scenario 4) 
+
+```{r}
+events.S4 <- resilience.events(
+  time_stamp = oxygen$timestamp, 
+  Pt = oxygen$S4_red_Imp_Surface, 
+  Pa = 2, 
+  Pmax = 0, 
+  evtSepTime = 6 * 60 * 60, 
+  signalWidth = 15 * 60
+)
+
+events.S4
+```
+
+### Summary
+
+```{r}
+resi.summary <- resilience.summary(
+  time_stamp = oxygen$timestamp, 
+  Pt = oxygen[, setdiff(names(oxygen), "timestamp")], 
+  Pa = 2, 
+  Pmax = 0, 
+  evtSepTime = 6 * 60 * 60, 
+  signalWidth = 15 * 60
+)
+
+resi.summary
+```

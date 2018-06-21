@@ -1,0 +1,25 @@
+Package: kwb.resilience
+Version: 0.1.0.9000
+Title: R Package for Assessing Resilience for Water Systems
+Description: R package for assessing resilience for water systems.
+Authors@R: c(person("Andreas", "Matzinger", , "andreas.matzinger@kompetenz-wasser.de",
+           role = c("aut", "cre"), comment = NULL),
+           person("Kompetenzzentrum Wasser Berlin gGmbH (KWB)", role = c("cph")))
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+URL: https://github.com/KWB-R/kwb.resilience
+BugReports: https://github.com/KWB-R/kwb.resilience/issues
+Suggests: 
+    covr,
+    testthat,
+    knitr,
+    rmarkdown
+Depends: R (>= 3.0)
+RoxygenNote: 6.0.1
+Imports: 
+    kwb.event
+Remotes: 
+    github::KWB-R/kwb.event
+VignetteBuilder: knitr
