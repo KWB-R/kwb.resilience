@@ -9,11 +9,11 @@
 data(oxygen)
 }
 \description{
-Simulated concentrations of dissolved oxygen (DO) in mg/l for differenc
-scenarios:
-S2: storage as it exists in year 2020
-S3: increased storage compared to the storage in year 2020
-S4: reduced impervious area
+Simulated concentrations of dissolved oxygen (DO) in mg/l for different
+scenarios:\cr
+S2: storage as it exists in year 2020\cr
+S3: increased storage compared to the storage in year 2020\cr
+S4: reduced impervious area\cr
 S5: increased DO (what does that mean?)
 }
 \details{

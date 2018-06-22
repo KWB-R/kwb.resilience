@@ -12,7 +12,9 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 7, 
+  fig.height = 5
 )
 ```
 
@@ -30,32 +32,52 @@ devtools::install_github("kwb-r/kwb.resilience", dependencies = TRUE)
 library("kwb.resilience")
 ```
 
-### Have a look at some example data
+### Define Helper Functions
 
 ```{r}
+plot_dissolved_oxygen_S4 <- function(oxygen, ...) {
+  plot(
+    x = oxygen$timestamp, 
+    y = oxygen$S4_red_Imp_Surface, 
+    xlab = "Time", 
+    ylab = "DO in mg/l",
+    ...
+  )
+}
+```
+
+### Example data
+
+Let's have a look at some example data:
+
+```{r}
+# Show the first lines of the example data
 head(oxygen)
+
+# Plot the example data
+plot_dissolved_oxygen_S4(oxygen)
 ```
 
 ### Severity and resilience (example for scenario 4)
 
 ```{r}
-Sev.S4 <- resilience.severity(
+system.time(Sev.S4 <- resilience.severity(
   time_stamp = oxygen$timestamp, 
   Pt = oxygen$S4_red_Imp_Surface, 
   Pa = 2, 
   Pmax = 0
-)
+))
 
 # Use another method of integral calculation (loop -> vector calculation)
-Sev.S4.control <- resilience.severity(
+system.time(Sev.S4.control <- resilience.severity(
   time_stamp = oxygen$timestamp, 
   Pt = oxygen$S4_red_Imp_Surface, 
   Pa = 2, 
   Pmax = 0,
   integral_method = 2
-)
+))
 
-# Both methods should return the same!
+# Method 2 should be faster but both methods should return the same!
 stopifnot(identical(Sev.S4, Sev.S4.control))
 
 Res0.S4 <- 1 - Sev.S4
@@ -64,16 +86,32 @@ Res0.S4 <- 1 - Sev.S4
 ### Resilience indices separate for each event (example for scenario 4) 
 
 ```{r}
+# Define the acceptable performance
+Pa <- 2
+
+# Calculate Events
 events.S4 <- resilience.events(
   time_stamp = oxygen$timestamp, 
   Pt = oxygen$S4_red_Imp_Surface, 
-  Pa = 2, 
+  Pa = Pa, 
   Pmax = 0, 
   evtSepTime = 6 * 60 * 60, 
   signalWidth = 15 * 60
 )
 
-events.S4
+# Plot Events
+for (i in seq_len(nrow(events.S4))) {
+  
+  event <- events.S4[i, ]
+  
+  xlim <- kwb.utils::extendLimits(kwb.event::eventToXLim(event), 5)
+  
+  plot_dissolved_oxygen_S4(oxygen, xlim = xlim, main = paste("Event", i))
+  
+  abline(v = unlist(event[, c("tBeg", "tEnd")]), col = "grey")
+  
+  abline(h = Pa, col = "red")
+}
 ```
 
 ### Summary

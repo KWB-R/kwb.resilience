@@ -19,7 +19,9 @@ Suggests:
 Depends: R (>= 3.0)
 RoxygenNote: 6.0.1
 Imports: 
-    kwb.event
+    kwb.event,
+    kwb.utils
 Remotes: 
     github::KWB-R/kwb.event
+    github::KWB-R/kwb.utils
 VignetteBuilder: knitr
