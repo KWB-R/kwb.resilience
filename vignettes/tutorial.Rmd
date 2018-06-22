@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Install kwb.resilience from GitHub
+## Install the Package from GitHub
 
 ```{r eval = FALSE}
 # install.packages("devtools")
@@ -26,13 +26,13 @@ knitr::opts_chunk$set(
 devtools::install_github("kwb-r/kwb.resilience", dependencies = TRUE)
 ```
 
-## Load the package
+## Load the Package
 
 ```{r}
 library("kwb.resilience")
 ```
 
-### Define Helper Functions
+## Define Helper Functions
 
 ```{r}
 plot_dissolved_oxygen_S4 <- function(oxygen, ...) {
@@ -46,7 +46,7 @@ plot_dissolved_oxygen_S4 <- function(oxygen, ...) {
 }
 ```
 
-### Example Data
+## Example Data
 
 Let's have a look at some example data:
 
@@ -58,7 +58,15 @@ head(oxygen)
 plot_dissolved_oxygen_S4(oxygen)
 ```
 
-### Severity and Resilience
+## Use the Package
+
+The following sections demonstrate the three main functions of the package:
+
+* [resilience.severity](#severity)
+* [resilience.events](#events)
+* [resilience.summary](#summary)
+
+### Severity and Resilience {#severity}
 
 Example for scenario 4:
 
@@ -85,7 +93,7 @@ stopifnot(identical(Sev.S4, Sev.S4.control))
 Res0.S4 <- 1 - Sev.S4
 ```
 
-### Resilience Indices Separate for Each Event 
+### Resilience Indices Separate for Each Event {#events}
 
 Example for scenario 4:
 
@@ -118,7 +126,7 @@ for (i in seq_len(nrow(events.S4))) {
 }
 ```
 
-### Summary
+### Summary {#summary}
 
 ```{r}
 resi.summary <- resilience.summary(
