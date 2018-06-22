@@ -68,14 +68,14 @@ resilience.summary <- function(
 
   # Output format
   summary.table <- data.frame(
-    "time_series" = seq_len(col_nums),
-    "num_events" = 0,
-    "worst_P" = 0,
-    "total_dur" = 0,
-    "total_trec" = 0,
-    "mean_trec_percent" = 0,
-    "Sev" = 0,
-    "Res0" = 0
+    time_series = seq_len(col_nums),
+    num_events = 0,
+    worst_P = 0,
+    total_dur = 0,
+    total_trec = 0,
+    mean_trec_percent = 0,
+    Sev = 0,
+    Res0 = 0
   )
   
   # Calculate resilience indices for each time series 
