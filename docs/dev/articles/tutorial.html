@@ -100,11 +100,25 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#load-the-package" class="anchor"></a>Load the package</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"kwb.resilience"</span>)</code></pre></div>
+<div id="define-helper-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#define-helper-functions" class="anchor"></a>Define Helper Functions</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_dissolved_oxygen_S4 &lt;-<span class="st"> </span><span class="cf">function</span>(oxygen, ...) {
+  <span class="kw">plot</span>(
+    <span class="dt">x =</span> oxygen<span class="op">$</span>timestamp, 
+    <span class="dt">y =</span> oxygen<span class="op">$</span>S4_red_Imp_Surface, 
+    <span class="dt">xlab =</span> <span class="st">"Time"</span>, 
+    <span class="dt">ylab =</span> <span class="st">"DO in mg/l"</span>,
+    ...
+  )
+}</code></pre></div>
+</div>
 <div id="example-data" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-data" class="anchor"></a>Example data</h3>
-<p>Let’s have a look at some example data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(oxygen)
+<a href="#example-data" class="anchor"></a>Example Data</h3>
+<p>Let’s have a look at some example data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Show the first lines of the example data</span>
+<span class="kw">head</span>(oxygen)
 <span class="co">#&gt;             timestamp S2_storage_2020 S3_storage_increase</span>
 <span class="co">#&gt; 1 2007-04-01 00:00:00           13.73               13.63</span>
 <span class="co">#&gt; 2 2007-04-01 00:15:00           13.71               13.62</span>
@@ -120,22 +134,14 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co">#&gt; 5              13.57             13.71</span>
 <span class="co">#&gt; 6              13.56             13.70</span>
 
-plot_dissolved_oxygen_S4 &lt;-<span class="st"> </span><span class="cf">function</span>(oxygen, ...) {
-  <span class="kw">plot</span>(
-    <span class="dt">x =</span> oxygen<span class="op">$</span>timestamp, 
-    <span class="dt">y =</span> oxygen<span class="op">$</span>S4_red_Imp_Surface, 
-    <span class="dt">xlab =</span> <span class="st">"Time"</span>, 
-    <span class="dt">ylab =</span> <span class="st">"DO in mg/l"</span>,
-    ...
-  )
-}
-
+<span class="co"># Plot the example data</span>
 <span class="kw">plot_dissolved_oxygen_S4</span>(oxygen)</code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 </div>
-<div id="severity-and-resilience-example-for-scenario-4" class="section level3">
+<div id="severity-and-resilience" class="section level3">
 <h3 class="hasAnchor">
-<a href="#severity-and-resilience-example-for-scenario-4" class="anchor"></a>Severity and resilience (example for scenario 4)</h3>
+<a href="#severity-and-resilience" class="anchor"></a>Severity and Resilience</h3>
+<p>Example for scenario 4:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(Sev.S4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/resilience.severity.html">resilience.severity</a></span>(
   <span class="dt">time_stamp =</span> oxygen<span class="op">$</span>timestamp, 
   <span class="dt">Pt =</span> oxygen<span class="op">$</span>S4_red_Imp_Surface, 
@@ -143,7 +149,7 @@ plot_dissolved_oxygen_S4 &lt;-<span class="st"> </span><span class="cf">function
   <span class="dt">Pmax =</span> <span class="dv">0</span>
 ))
 <span class="co">#&gt;        User      System verstrichen </span>
-<span class="co">#&gt;       0.092       0.000       0.093</span>
+<span class="co">#&gt;       0.092       0.000       0.092</span>
 
 <span class="co"># Use another method of integral calculation (loop -&gt; vector calculation)</span>
 <span class="kw">system.time</span>(Sev.S4.control &lt;-<span class="st"> </span><span class="kw"><a href="../reference/resilience.severity.html">resilience.severity</a></span>(
@@ -154,19 +160,21 @@ plot_dissolved_oxygen_S4 &lt;-<span class="st"> </span><span class="cf">function
   <span class="dt">integral_method =</span> <span class="dv">2</span>
 ))
 <span class="co">#&gt;        User      System verstrichen </span>
-<span class="co">#&gt;       0.000       0.000       0.001</span>
+<span class="co">#&gt;       0.004       0.000       0.001</span>
 
 <span class="co"># Method 2 should be faster but both methods should return the same!</span>
 <span class="kw">stopifnot</span>(<span class="kw">identical</span>(Sev.S4, Sev.S4.control))
 
 Res0.S4 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>Sev.S4</code></pre></div>
 </div>
-<div id="resilience-indices-separate-for-each-event-example-for-scenario-4" class="section level3">
+<div id="resilience-indices-separate-for-each-event" class="section level3">
 <h3 class="hasAnchor">
-<a href="#resilience-indices-separate-for-each-event-example-for-scenario-4" class="anchor"></a>Resilience indices separate for each event (example for scenario 4)</h3>
+<a href="#resilience-indices-separate-for-each-event" class="anchor"></a>Resilience Indices Separate for Each Event</h3>
+<p>Example for scenario 4:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define the acceptable performance</span>
 Pa &lt;-<span class="st"> </span><span class="dv">2</span>
 
+<span class="co"># Calculate Events</span>
 events.S4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/resilience.events.html">resilience.events</a></span>(
   <span class="dt">time_stamp =</span> oxygen<span class="op">$</span>timestamp, 
   <span class="dt">Pt =</span> oxygen<span class="op">$</span>S4_red_Imp_Surface, 
@@ -176,13 +184,20 @@ events.S4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/r
   <span class="dt">signalWidth =</span> <span class="dv">15</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span>
 )
 
-xlim &lt;-<span class="st"> </span>kwb.utils<span class="op">::</span><span class="kw">extendLimits</span>(kwb.event<span class="op">::</span><span class="kw">eventToXLim</span>(events.S4[<span class="dv">1</span>, ]), <span class="fl">0.5</span>)
-
-<span class="kw">plot_dissolved_oxygen_S4</span>(oxygen, <span class="dt">xlim =</span> xlim, <span class="dt">main =</span> <span class="st">"First Event"</span>)
-
-<span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">unlist</span>(events.S4[<span class="dv">1</span>, <span class="kw">c</span>(<span class="st">"tBeg"</span>, <span class="st">"tEnd"</span>)]), <span class="dt">col =</span> <span class="st">"grey"</span>)
-<span class="kw">abline</span>(<span class="dt">h =</span> Pa, <span class="dt">col =</span> <span class="st">"red"</span>)</code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
+<span class="co"># Plot Events</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">nrow</span>(events.S4))) {
+  
+  event &lt;-<span class="st"> </span>events.S4[i, ]
+  
+  xlim &lt;-<span class="st"> </span>kwb.utils<span class="op">::</span><span class="kw">extendLimits</span>(kwb.event<span class="op">::</span><span class="kw">eventToXLim</span>(event), <span class="dv">5</span>)
+  
+  <span class="kw">plot_dissolved_oxygen_S4</span>(oxygen, <span class="dt">xlim =</span> xlim, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">"Event"</span>, i))
+  
+  <span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">unlist</span>(event[, <span class="kw">c</span>(<span class="st">"tBeg"</span>, <span class="st">"tEnd"</span>)]), <span class="dt">col =</span> <span class="st">"grey"</span>)
+  
+  <span class="kw">abline</span>(<span class="dt">h =</span> Pa, <span class="dt">col =</span> <span class="st">"red"</span>)
+}</code></pre></div>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-6-1.png" width="672"><img src="tutorial_files/figure-html/unnamed-chunk-6-2.png" width="672"></p>
 </div>
 <div id="summary" class="section level3">
 <h3 class="hasAnchor">

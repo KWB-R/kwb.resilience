@@ -46,7 +46,7 @@ plot_dissolved_oxygen_S4 <- function(oxygen, ...) {
 }
 ```
 
-### Example data
+### Example Data
 
 Let's have a look at some example data:
 
@@ -58,7 +58,9 @@ head(oxygen)
 plot_dissolved_oxygen_S4(oxygen)
 ```
 
-### Severity and resilience (example for scenario 4)
+### Severity and Resilience
+
+Example for scenario 4:
 
 ```{r}
 system.time(Sev.S4 <- resilience.severity(
@@ -83,7 +85,9 @@ stopifnot(identical(Sev.S4, Sev.S4.control))
 Res0.S4 <- 1 - Sev.S4
 ```
 
-### Resilience indices separate for each event (example for scenario 4) 
+### Resilience Indices Separate for Each Event 
+
+Example for scenario 4:
 
 ```{r}
 # Define the acceptable performance
