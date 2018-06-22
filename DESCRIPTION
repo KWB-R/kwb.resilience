@@ -22,6 +22,6 @@ Imports:
     kwb.event,
     kwb.utils
 Remotes: 
-    github::KWB-R/kwb.event
+    github::KWB-R/kwb.event,
     github::KWB-R/kwb.utils
 VignetteBuilder: knitr
