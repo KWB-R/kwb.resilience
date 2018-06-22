@@ -161,30 +161,18 @@ resilience.summary <- function(
 #'
 resilience.events <- function(time_stamp, Pt, Pa, Pmax, evtSepTime, signalWidth)
 {
-  # Join vectors to data.frame
-  P <- data.frame(timestamp = time_stamp, P_in = Pt)
-  
-  # Add Test-Variable
-  P$testvar <- (Pa - P$P_in) / (Pa - Pmax)
-  
-  # Any rows exceed Pa?
-  any.exceed <- any(P$testvar >= 0)
-  
+  # Initialise the performance data frame
+  P <- init_performance(time_stamp, Pt, Pa, Pmax)
+
   # Analyse exceedance events (if any)
-  
-  if (! any.exceed) {
+  if (! any(P$exceeding)) {
     
     stop("Pa never exceeded")
   }
     
-  # Which rows exceed Pa?
-  index.exceed <- which(P$testvar >= 0)
-    
-  # Set P(t)
-  P$Pt <- Pa 
-  P$Pt[index.exceed] <- P$P_in[index.exceed]
-  P.exceed <- P[index.exceed, ]
-    
+  # Continue only with the exceeding rows  
+  P.exceed <- P[P$exceeding, ]
+
   # Define events
   x.events <- kwb.event::hsEvents(
     tseries = P.exceed$timestamp, 
@@ -216,26 +204,42 @@ resilience.events <- function(time_stamp, Pt, Pa, Pmax, evtSepTime, signalWidth)
     
     x.events$Res0[event] <- 1 - x.events$Sev[event]
     
-    # Find worst performance in event
-    worst_testvar <- max(P.event$testvar) 
-    indices.worst <- which(P.event$testvar == worst_testvar)
-    
-    # Last occurrence of maximal failure within event
-    index.last <- max(indices.worst)
+    # Find last occurrence of worst performance (maximal failure) within event
+    index.last.worst <- max(which(P.event$testvar == max(P.event$testvar)))
     
     # Output worst P
-    x.events$worst_P[event] <- P.event$P_in[index.last]
+    x.events$worst_P[event] <- P.event$P_in[index.last.worst]
     
     # Calculate trec and trec_percent
     x.events$trec[event] <- as.numeric(x.events$tEnd[event]) -
-      as.numeric(P.event$timestamp[index.last]) 
+      as.numeric(P.event$timestamp[index.last.worst]) 
     
     x.events$trec_percent[event] <- x.events$trec[event] / x.events$dur[event] * 100
   }
   
   x.events[, -(1:2)]
 }
+
+# init_performance -------------------------------------------------------------
+init_performance <- function(time_stamp, Pt, Pa, Pmax)
+{
+  # Join vectors to data.frame
+  P <- data.frame(timestamp = time_stamp, P_in = Pt)
   
+  # Add Test-Variable
+  P$testvar <- (Pa - P$P_in) / (Pa - Pmax)
+
+  # Which rows exceed Pa?
+  P$exceeding <- (P$testvar >= 0)
+  
+  # Set P(t)
+  P$Pt <- Pa
+  
+  P$Pt[P$exceeding] <- P$P_in[P$exceeding]
+  
+  P
+}
+
 # resilience.severity ----------------------------------------------------------
 
 #' Calculate Severity
@@ -258,30 +262,20 @@ resilience.events <- function(time_stamp, Pt, Pa, Pmax, evtSepTime, signalWidth)
 #'
 resilience.severity <- function(time_stamp, Pt, Pa, Pmax, integral_method = 1)
 {
-  # Join vectors to data.frame, time_stamp is turned numeric for following
-  # calculations
-  P <- data.frame(timestamp = as.numeric(time_stamp), P_in = Pt)
-  
-  # Add Test-Variable
-  P$testvar <- (Pa - P$P_in) / (Pa - Pmax)
-  
-  # Which rows exceed Pa?
-  test_is_positive <- (P$testvar >= 0)
-    
-  # Set P(t) (also works if index.exceed = integer (0))
-  P$Pt <- Pa 
-  P$Pt[test_is_positive] <- P$P_in[test_is_positive]
-  
+  # Turn time_stamp to numeric for the following calculations
+  P <- init_performance(as.numeric(time_stamp), Pt, Pa, Pmax)
+
   # Calculate function in integral for each time step
   P$integrant <- Pa - P$Pt
 
-  P$integral <- integrate(P$timestamp, P$integrant, method = integral_method)
+  integral <- integrate(P$timestamp, P$integrant, method = integral_method)
+
+  # Calculate ranges  
+  P_range <- (Pa - Pmax)
+  t_range <- (P$timestamp[nrow(P)] - P$timestamp[1])
   
   # Calculate severity
-  A <- 1 / (Pa - Pmax)
-  B <- 1 / (P$timestamp[nrow(P)] - P$timestamp[1])
-  
-  A * B * sum(P$integral)
+  1 / P_range * 1 / t_range * sum(integral)
 }
 
 # integrate --------------------------------------------------------------------
@@ -300,16 +294,21 @@ integrate <- function(timestamps, integrants, method = 1)
       
       integral[i] <- mean(integrants[(i-1):i]) * (timestamps[i] - timestamps[i-1])
     }
+
+    # Return the integral    
+    integral
     
   } else if (method == 2) {
     
-    last_integrants <- c(0, integrants[-n_timestamps])
-    integral <- (integrants + last_integrants) / 2 * c(0, diff(timestamps))
+    mean_integrants <- (c(0, integrants[-n_timestamps]) + integrants) / 2
+    
+    time_differences <- c(0, diff(timestamps))
+    
+    # Calculate and return the integral
+    mean_integrants * time_differences
     
   } else {
     
     stop("method ", method, " not supported")
   }
-  
-  integral
 }
