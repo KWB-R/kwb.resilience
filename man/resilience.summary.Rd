@@ -26,28 +26,23 @@ recorded on a five minute time scale). This parameter is needed to
 calculate event durations.}
 }
 \value{
-data.frame containing one row by time series
-
-num_events: number of failure events in time series
-
-worst_P: P(t) closest to Pmax within time series
-
-total_dur: total duration of failure events in seconds
-
-total_trec: total recovery time of failure events in seconds
-
-mean_trec_percent: trec relative to event duration in %, averaged
+Returns data.frame containing one row by time series. Columns are:
+\itemize{
+   \item num_events: number of failure events in time series
+   \item worst_P: P(t) closest to Pmax within time series
+   \item total_dur: total duration of failure events in seconds
+   \item total_trec: total recovery time of failure events in seconds
+   \item mean_trec_percent: trec relative to event duration in per cent, averaged
   over all failure events in time series
-
-Sev: severity over entire time series (=0 if no exceedance of Pa)
-
-Res0: resilience index over entire time series (=1 if no exceedance
+   \item Sev: severity over entire time series (=0 if no exceedance of Pa)
+   \item Res0: resilience index over entire time series (=1 if no exceedance
   of Pa)
 }
+}
 \description{
-calculates resilience indices (see Matzinger et al. 2018)
-for entire time series of performance P(t)
-failure is defined by acceptable
-performance Pa and maximal failure Pmax 
-entire time series is considered
+Calculates resilience indices (see \href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{Matzinger et al. 2018})
+for entire time series of performance P(t).
+Failure is defined by acceptable
+performance Pa and maximal failure Pmax. 
+Entire time series is considered
 }

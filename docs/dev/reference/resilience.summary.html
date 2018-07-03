@@ -21,24 +21,25 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
 
 <meta property="og:title" content="Calculate Overall Resilience Index for One or Several Performance Time Series — resilience.summary" />
 
-<meta property="og:description" content="calculates resilience indices (see Matzinger et al. 2018)
-for entire time series of performance P(t)
-failure is defined by acceptable
-performance Pa and maximal failure Pmax 
-entire time series is considered" />
+<meta property="og:description" content="Calculates resilience indices (see Matzinger et al. 2018)
+for entire time series of performance P(t).
+Failure is defined by acceptable
+performance Pa and maximal failure Pmax. 
+Entire time series is considered" />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
-
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -87,6 +88,9 @@ entire time series is considered" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/background.html">About kwb.resilience</a>
+    </li>
+    <li>
       <a href="../articles/tutorial.html">Tutorial: How to Use kwb.resilience</a>
     </li>
   </ul>
@@ -119,11 +123,11 @@ entire time series is considered" />
 
     <div class="ref-description">
     
-    <p>calculates resilience indices (see Matzinger et al. 2018)
-for entire time series of performance P(t)
-failure is defined by acceptable
-performance Pa and maximal failure Pmax 
-entire time series is considered</p>
+    <p>Calculates resilience indices (see <a href='https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme'>Matzinger et al. 2018</a>)
+for entire time series of performance P(t).
+Failure is defined by acceptable
+performance Pa and maximal failure Pmax. 
+Entire time series is considered</p>
     
     </div>
 
@@ -166,16 +170,18 @@ calculate event durations.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame containing one row by time series</p>
-<p>num_events: number of failure events in time series</p>
-<p>worst_P: P(t) closest to Pmax within time series</p>
-<p>total_dur: total duration of failure events in seconds</p>
-<p>total_trec: total recovery time of failure events in seconds</p>
-<p>mean_trec_percent: trec relative to event duration in <!-- %, averaged -->
-  over all failure events in time series</p>
-<p>Sev: severity over entire time series (=0 if no exceedance of Pa)</p>
-<p>Res0: resilience index over entire time series (=1 if no exceedance
-  of Pa)</p>
+    <p>Returns data.frame containing one row by time series. Columns are:</p><ul>
+<li><p>num_events: number of failure events in time series</p></li>
+<li><p>worst_P: P(t) closest to Pmax within time series</p></li>
+<li><p>total_dur: total duration of failure events in seconds</p></li>
+<li><p>total_trec: total recovery time of failure events in seconds</p></li>
+<li><p>mean_trec_percent: trec relative to event duration in per cent, averaged
+  over all failure events in time series</p></li>
+<li><p>Sev: severity over entire time series (=0 if no exceedance of Pa)</p></li>
+<li><p>Res0: resilience index over entire time series (=1 if no exceedance
+  of Pa)</p></li>
+</ul>
+
     
 
   </div>

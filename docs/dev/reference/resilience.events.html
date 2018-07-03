@@ -21,23 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
 
 <meta property="og:title" content="Calculate Resilience by Failure Event — resilience.events" />
 
-<meta property="og:description" content="calculates resilience indices (see Matzinger et al. 2018)
-for each failure event in time series of performance P(t)
-failure is defined by acceptable
-performance Pa and maximal failure Pmax" />
+<meta property="og:description" content="Calculates resilience indices (see Matzinger et al. 2018)
+for each failure event in time series of performance P(t).
+Failure is defined by acceptable
+performance Pa and maximal failure Pmax." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
-
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -86,6 +87,9 @@ performance Pa and maximal failure Pmax" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/background.html">About kwb.resilience</a>
+    </li>
+    <li>
       <a href="../articles/tutorial.html">Tutorial: How to Use kwb.resilience</a>
     </li>
   </ul>
@@ -118,10 +122,10 @@ performance Pa and maximal failure Pmax" />
 
     <div class="ref-description">
     
-    <p>calculates resilience indices (see Matzinger et al. 2018)
-for each failure event in time series of performance P(t)
-failure is defined by acceptable
-performance Pa and maximal failure Pmax</p>
+    <p>Calculates resilience indices (see <a href='https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme'>Matzinger et al. 2018</a>)
+for each failure event in time series of performance P(t).
+Failure is defined by acceptable
+performance Pa and maximal failure Pmax.</p>
     
     </div>
 
@@ -163,14 +167,15 @@ calculate event durations.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame containing one row by failure event</p>
-<p>first columns are identical to kwb.event::hsEvents</p>
-<p>Sev: severity by event</p>
-<p>Res0: resilience index by event</p>
-<p>trec: recovery time in seconds</p>
-<p>trec_percent: trec relative to event duration in <!-- % --></p>
-<p>worst_P: P(t) closest to Pmax within event</p>
-<p>script is stopped if no failure event with message "Pa never
+    <p>Returns data.frame containing one row by failure event.
+First columns are identical to kwb.event::hsEvents. Following columns
+are additional resilience indices:</p><ul>
+<li><p>Sev: severity by event</p></li>
+<li><p>Res0: resilience index by event</p></li>
+<li><p>trec: recovery time in seconds</p></li>
+<li><p>trec_percent: trec relative to event duration in per cent</p></li>
+<li><p>worst_P: P(t) closest to Pmax within event</p></li>
+</ul><p>script is stopped if no failure event with message "Pa never
   exceeded"</p>
     
 

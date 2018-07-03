@@ -2,16 +2,17 @@
 
 #' Simulated Dissolved Oxygen in River Spree
 #'
-#' Simulated concentrations of dissolved oxygen (DO) in mg/l for different
-#' scenarios:\cr
-#' S2: storage as it exists in year 2020\cr
-#' S3: increased storage compared to the storage in year 2020\cr
-#' S4: reduced impervious area\cr
-#' S5: increased DO (what does that mean?)
+#' Data series "oxygen" are included in kwb.resilience as test data
+#' for the use of the package. The included data is referred to in
+#' the supplied package tutorial (see vignettes), as well as in the supporting 
+#' \href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{research paper}\cr
+#' The data are simulated concentrations of dissolved oxygen (DO) in mg/l for different
+#' management scenarios. Simulations and assumptions are described in detail in \href{https://www.researchgate.net/publication/306025705_Impacts_of_combined_sewer_overflows_on_a_large_urban_river_-_Understanding_the_effect_of_different_management_strategies}{Riechel et al. 2016}.\cr
 #' 
+#' Columns in data.frame:\cr
 #' \itemize{
-#'   \item timestamp (POSIXct). Timestamp
-#'   \item S2_storage_2020 (numeric). D
+#'   \item timestamp (POSIXct). 
+#'   \item S2_storage_2020 (numeric).
 #'   \item S3_storage_increase (numeric).
 #'   \item S4_red_Imp_Surface (numeric).
 #'   \item S5_increase_in_DO (numeric).
@@ -28,11 +29,11 @@ NULL
 
 #' Calculate Overall Resilience Index for One or Several Performance Time Series
 #'
-#' calculates resilience indices (see Matzinger et al. 2018)
-#' for entire time series of performance P(t)
-#' failure is defined by acceptable
-#' performance Pa and maximal failure Pmax 
-#' entire time series is considered
+#' Calculates resilience indices (see \href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{Matzinger et al. 2018})
+#' for entire time series of performance P(t).
+#' Failure is defined by acceptable
+#' performance Pa and maximal failure Pmax. 
+#' Entire time series is considered
 #' 
 #' @param time_stamp vector containing timestamp (sorted in ascending order)
 #' @param Pt vector or data.frame (if several colums) with performance P(t)
@@ -47,16 +48,19 @@ NULL
 #'   recorded on a five minute time scale). This parameter is needed to
 #'   calculate event durations.
 #'
-#' @return data.frame containing one row by time series
-#' @return num_events: number of failure events in time series
-#' @return worst_P: P(t) closest to Pmax within time series
-#' @return total_dur: total duration of failure events in seconds
-#' @return total_trec: total recovery time of failure events in seconds
-#' @return mean_trec_percent: trec relative to event duration in %, averaged
+#' @return Returns data.frame containing one row by time series. Columns are:
+#' \itemize{
+#'    \item num_events: number of failure events in time series
+#'    \item worst_P: P(t) closest to Pmax within time series
+#'    \item total_dur: total duration of failure events in seconds
+#'    \item total_trec: total recovery time of failure events in seconds
+#'    \item mean_trec_percent: trec relative to event duration in per cent, averaged
 #'   over all failure events in time series
-#' @return Sev: severity over entire time series (=0 if no exceedance of Pa)
-#' @return Res0: resilience index over entire time series (=1 if no exceedance
+#'    \item Sev: severity over entire time series (=0 if no exceedance of Pa)
+#'    \item Res0: resilience index over entire time series (=1 if no exceedance
 #'   of Pa)
+#' }
+#' 
 #' @export
 #'
 resilience.summary <- function(
@@ -129,10 +133,10 @@ resilience.summary <- function(
 
 #' Calculate Resilience by Failure Event
 #'
-#' calculates resilience indices (see Matzinger et al. 2018)
-#' for each failure event in time series of performance P(t)
-#' failure is defined by acceptable
-#' performance Pa and maximal failure Pmax 
+#' Calculates resilience indices (see \href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{Matzinger et al. 2018})
+#' for each failure event in time series of performance P(t).
+#' Failure is defined by acceptable
+#' performance Pa and maximal failure Pmax. 
 #' 
 #' @param time_stamp vector containing timestamp (sorted in ascending order)
 #' @param Pt vector with performance P(t) (same length as timestamp)
@@ -146,15 +150,19 @@ resilience.summary <- function(
 #'   recorded on a five minute time scale). This parameter is needed to
 #'   calculate event durations.
 #'
-#' @return data.frame containing one row by failure event
-#' @return first columns are identical to kwb.event::hsEvents
-#' @return Sev: severity by event
-#' @return Res0: resilience index by event
-#' @return trec: recovery time in seconds
-#' @return trec_percent: trec relative to event duration in %
-#' @return worst_P: P(t) closest to Pmax within event
-#' @return script is stopped if no failure event with message "Pa never
+#' @return Returns data.frame containing one row by failure event.
+#' First columns are identical to kwb.event::hsEvents. Following columns
+#' are additional resilience indices:
+#' \itemize{
+#' \item Sev: severity by event
+#' \item Res0: resilience index by event
+#' \item trec: recovery time in seconds
+#' \item trec_percent: trec relative to event duration in per cent
+#' \item worst_P: P(t) closest to Pmax within event
+#' }
+#' script is stopped if no failure event with message "Pa never
 #'   exceeded"
+#'
 #'   
 #' @importFrom kwb.event hsEvents
 #' @export
@@ -244,10 +252,10 @@ init_performance <- function(time_stamp, Pt, Pa, Pmax)
 
 #' Calculate Severity
 #'
-#' calculates severity Sev (see Matzinger et al. 2018)
-#' of failures for time series of performance P(t) 
-#' entire time period is used, failure is defined by acceptable
-#' performance Pa and maximal failure Pmax
+#' calculates severity Sev (see \href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{Matzinger et al. 2018})
+#' of failures for time series of performance P(t). 
+#' Entire time period is used, failure is defined by acceptable
+#' performance Pa and maximal failure Pmax.
 #'
 #' @param time_stamp vector containing timestamp (sorted in ascending order)
 #' @param Pt vector with performance P(t) (same length as timestamp)
@@ -255,12 +263,12 @@ init_performance <- function(time_stamp, Pt, Pa, Pmax)
 #' @param Pmax maximal failure (worst case)
 #' @param integral_method either 1 or 2. Switches between two different versions
 #'   of integral calculation. Both methods should return the same but method
-#'   2 should be much faster when applied to long vectors
+#'   2 should be much faster when applied to long vectors. Default is method 2.
 #' 
-#' @return severity integrated over entire time series (one number)
+#' @return Returns severity integrated over entire time series (one number)
 #' @export
 #'
-resilience.severity <- function(time_stamp, Pt, Pa, Pmax, integral_method = 1)
+resilience.severity <- function(time_stamp, Pt, Pa, Pmax, integral_method = 2)
 {
   # Turn time_stamp to numeric for the following calculations
   P <- init_performance(as.numeric(time_stamp), Pt, Pa, Pmax)

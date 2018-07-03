@@ -25,26 +25,22 @@ recorded on a five minute time scale). This parameter is needed to
 calculate event durations.}
 }
 \value{
-data.frame containing one row by failure event
-
-first columns are identical to kwb.event::hsEvents
-
-Sev: severity by event
-
-Res0: resilience index by event
-
-trec: recovery time in seconds
-
-trec_percent: trec relative to event duration in %
-
-worst_P: P(t) closest to Pmax within event
-
+Returns data.frame containing one row by failure event.
+First columns are identical to kwb.event::hsEvents. Following columns
+are additional resilience indices:
+\itemize{
+\item Sev: severity by event
+\item Res0: resilience index by event
+\item trec: recovery time in seconds
+\item trec_percent: trec relative to event duration in per cent
+\item worst_P: P(t) closest to Pmax within event
+}
 script is stopped if no failure event with message "Pa never
   exceeded"
 }
 \description{
-calculates resilience indices (see Matzinger et al. 2018)
-for each failure event in time series of performance P(t)
-failure is defined by acceptable
-performance Pa and maximal failure Pmax
+Calculates resilience indices (see \href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{Matzinger et al. 2018})
+for each failure event in time series of performance P(t).
+Failure is defined by acceptable
+performance Pa and maximal failure Pmax.
 }

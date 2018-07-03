@@ -9,17 +9,18 @@
 data(oxygen)
 }
 \description{
-Simulated concentrations of dissolved oxygen (DO) in mg/l for different
-scenarios:\cr
-S2: storage as it exists in year 2020\cr
-S3: increased storage compared to the storage in year 2020\cr
-S4: reduced impervious area\cr
-S5: increased DO (what does that mean?)
+Data series "oxygen" are included in kwb.resilience as test data
+for the use of the package. The included data is referred to in
+the supplied package tutorial (see vignettes), as well as in the supporting 
+\href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{research paper}\cr
+The data are simulated concentrations of dissolved oxygen (DO) in mg/l for different
+management scenarios. Simulations and assumptions are described in detail in \href{https://www.researchgate.net/publication/306025705_Impacts_of_combined_sewer_overflows_on_a_large_urban_river_-_Understanding_the_effect_of_different_management_strategies}{Riechel et al. 2016}.\cr
 }
 \details{
+Columns in data.frame:\cr
 \itemize{
-  \item timestamp (POSIXct). Timestamp
-  \item S2_storage_2020 (numeric). D
+  \item timestamp (POSIXct). 
+  \item S2_storage_2020 (numeric).
   \item S3_storage_increase (numeric).
   \item S4_red_Imp_Surface (numeric).
   \item S5_increase_in_DO (numeric).

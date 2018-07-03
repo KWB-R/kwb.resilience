@@ -1,0 +1,48 @@
+---
+title: "About kwb.resilience"
+author: "Andreas Matzinger"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Background
+
+kwb.resilience allows calculating different resilience indices for time series.
+Equations are described and discussed in the freely available conference paper by [Matzinger et al. (2018)](https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme) (unfortunately in German only). The sample data for the first example in the paper is also contained in the package as a data.frame "oxygen".
+
+The package should make a starting point for a broader discussion of approaches to tackle resilience of urban water infrastructure for applied cases. Accordingly, adaptations and suggestions are encouraged!
+
+
+## Acknowledgements
+
+The first version of kwb.resilience was developped at [Kompetenzzentrum Wasser Berlin](www.kompetenz-wasser.de) in the framework of the project [netWORKS 4](http://www.kompetenz-wasser.de/en/project/networks/), financed by the German Ministry of Education and Research in the program [FONA](http://www.fona.de). 
+
+
+
+## How to use kwb.resilience
+
+Install the package using devtools as follows. For more information check documentation of single functions and the [tutorial](https://kwb-r.github.io/kwb.resilience/dev/articles/tutorial.html). 
+
+```{r eval = FALSE}
+# install.packages("devtools")
+
+devtools::install_github("kwb-r/kwb.resilience", dependencies = TRUE, build_vignettes = TRUE)
+```
+
+note: this will also install two handy KWB packages kwb.event and kwb.plot and their CRAN dependencies.
+
+
+
+**Reference:**
+Matzinger, A., M. Zamzow, M. Riechel, E. Pawlowsky-Reusing, P. Rouault (2018) _Quantitative Beschreibung der Resilienz urbaner Wassersysteme. In:_ Schriftenreihe wasser infrastruktur ressourcen. Vol. 1. 119-127. TU Kaiserslautern. 
+

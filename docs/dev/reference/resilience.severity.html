@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -31,13 +33,12 @@
 <meta property="og:title" content="Calculate Severity — resilience.severity" />
 
 <meta property="og:description" content="calculates severity Sev (see Matzinger et al. 2018)
-of failures for time series of performance P(t) 
-entire time period is used, failure is defined by acceptable
-performance Pa and maximal failure Pmax" />
+of failures for time series of performance P(t). 
+Entire time period is used, failure is defined by acceptable
+performance Pa and maximal failure Pmax." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
-
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -86,6 +87,9 @@ performance Pa and maximal failure Pmax" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/background.html">About kwb.resilience</a>
+    </li>
+    <li>
       <a href="../articles/tutorial.html">Tutorial: How to Use kwb.resilience</a>
     </li>
   </ul>
@@ -118,14 +122,14 @@ performance Pa and maximal failure Pmax" />
 
     <div class="ref-description">
     
-    <p>calculates severity Sev (see Matzinger et al. 2018)
-of failures for time series of performance P(t) 
-entire time period is used, failure is defined by acceptable
-performance Pa and maximal failure Pmax</p>
+    <p>calculates severity Sev (see <a href='https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme'>Matzinger et al. 2018</a>)
+of failures for time series of performance P(t). 
+Entire time period is used, failure is defined by acceptable
+performance Pa and maximal failure Pmax.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>resilience.severity</span>(<span class='no'>time_stamp</span>, <span class='no'>Pt</span>, <span class='no'>Pa</span>, <span class='no'>Pmax</span>, <span class='kw'>integral_method</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>resilience.severity</span>(<span class='no'>time_stamp</span>, <span class='no'>Pt</span>, <span class='no'>Pa</span>, <span class='no'>Pmax</span>, <span class='kw'>integral_method</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,13 +154,13 @@ performance Pa and maximal failure Pmax</p>
       <th>integral_method</th>
       <td><p>either 1 or 2. Switches between two different versions
 of integral calculation. Both methods should return the same but method
-2 should be much faster when applied to long vectors</p></td>
+2 should be much faster when applied to long vectors. Default is method 2.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>severity integrated over entire time series (one number)</p>
+    <p>Returns severity integrated over entire time series (one number)</p>
     
 
   </div>

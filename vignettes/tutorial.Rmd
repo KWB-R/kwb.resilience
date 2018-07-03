@@ -23,8 +23,10 @@ knitr::opts_chunk$set(
 ```{r eval = FALSE}
 # install.packages("devtools")
 
-devtools::install_github("kwb-r/kwb.resilience", dependencies = TRUE)
+devtools::install_github("kwb-r/kwb.resilience", dependencies = TRUE, build_vignettes = TRUE)
 ```
+
+note: this will also install two handy KWB packages kwb.event and kwb.plot and their CRAN dependencies.
 
 ## Load the Package
 
@@ -33,6 +35,8 @@ library("kwb.resilience")
 ```
 
 ## Define Helper Functions
+
+We use the following plot function within this tutorial to look at our data:
 
 ```{r}
 plot_dissolved_oxygen_S4 <- function(oxygen, ...) {
@@ -48,7 +52,7 @@ plot_dissolved_oxygen_S4 <- function(oxygen, ...) {
 
 ## Example Data
 
-Let's have a look at some example data:
+Let's have a look at some example data, which is included in kwb.resilience:
 
 ```{r}
 # Show the first lines of the example data
@@ -68,34 +72,32 @@ The following sections demonstrate the three main functions of the package:
 
 ### Severity and Resilience {#severity}
 
-Example for scenario 4:
+The function resilience.severity calculates severity as outlined in [Matzinger et al. (2018)](https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme).
+The following example applies the function for scenario 4 of the test data set, using Pa = 2 mg/L as a lower threshold (for river fish) and Pmax = 0 mg/L as worst possible performance. Note: The function also works for upper thresholds.
 
 ```{r}
-system.time(Sev.S4 <- resilience.severity(
+Sev.S4 <- resilience.severity(
   time_stamp = oxygen$timestamp, 
   Pt = oxygen$S4_red_Imp_Surface, 
   Pa = 2, 
   Pmax = 0
-))
+)
 
-# Use another method of integral calculation (loop -> vector calculation)
-system.time(Sev.S4.control <- resilience.severity(
-  time_stamp = oxygen$timestamp, 
-  Pt = oxygen$S4_red_Imp_Surface, 
-  Pa = 2, 
-  Pmax = 0,
-  integral_method = 2
-))
-
-# Method 2 should be faster but both methods should return the same!
-stopifnot(identical(Sev.S4, Sev.S4.control))
-
-Res0.S4 <- 1 - Sev.S4
+Sev.S4
 ```
+
+The resilience index Res0 can then be calculated as 1-severity:
+
+```{r}
+Res0.S4 <- 1 - Sev.S4
+
+Res0.S4
+```
+
 
 ### Resilience Indices Separate for Each Event {#events}
 
-Example for scenario 4:
+A time series can contain several events when performance P(t) violates acceptable threshold Pa. The function resilience.events allows calculation of resilience indices separately for each event. Each line in the resulting data.frame shows one event. Again, let's make an example for scenario 4:
 
 ```{r}
 # Define the acceptable performance
@@ -111,6 +113,13 @@ events.S4 <- resilience.events(
   signalWidth = 15 * 60
 )
 
+events.S4
+```
+
+Let's plot the two failure events of scenario 4 (beginning and end is marked by vertical grey lines). The red line shows Pa = 2 mg/L. For the evaluation of resilience indices severity and Res0, only the area below Pa is integrated (in the case of an upper threshold it would be the area above Pa).
+
+```{r}
+
 # Plot Events
 for (i in seq_len(nrow(events.S4))) {
   
@@ -118,15 +127,22 @@ for (i in seq_len(nrow(events.S4))) {
   
   xlim <- kwb.utils::extendLimits(kwb.event::eventToXLim(event), 5)
   
-  plot_dissolved_oxygen_S4(oxygen, xlim = xlim, main = paste("Event", i))
+  plot_dissolved_oxygen_S4(oxygen, xlim = xlim, ylim = c(0,6), 
+                           main = paste("Event", i))
   
   abline(v = unlist(event[, c("tBeg", "tEnd")]), col = "grey")
   
   abline(h = Pa, col = "red")
+  
 }
 ```
 
-### Summary {#summary}
+
+
+### Resilience indices for entire time series {#summary}
+
+The function resi.summary allows calculating resilience indices from [Matzinger et al. (2018)](https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme) for entire time series. The function combines complete integration of time series (e.g., for Res0) with event means (such as mean recovery time in per cent mean_trec_percent). In the case of resilience.summary all the time series (scenarios in test data) are evaluated. Each line of result shows result for one time series:
+
 
 ```{r}
 resi.summary <- resilience.summary(

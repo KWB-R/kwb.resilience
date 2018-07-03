@@ -4,7 +4,7 @@
 \alias{resilience.severity}
 \title{Calculate Severity}
 \usage{
-resilience.severity(time_stamp, Pt, Pa, Pmax, integral_method = 1)
+resilience.severity(time_stamp, Pt, Pa, Pmax, integral_method = 2)
 }
 \arguments{
 \item{time_stamp}{vector containing timestamp (sorted in ascending order)}
@@ -17,14 +17,14 @@ resilience.severity(time_stamp, Pt, Pa, Pmax, integral_method = 1)
 
 \item{integral_method}{either 1 or 2. Switches between two different versions
 of integral calculation. Both methods should return the same but method
-2 should be much faster when applied to long vectors}
+2 should be much faster when applied to long vectors. Default is method 2.}
 }
 \value{
-severity integrated over entire time series (one number)
+Returns severity integrated over entire time series (one number)
 }
 \description{
-calculates severity Sev (see Matzinger et al. 2018)
-of failures for time series of performance P(t) 
-entire time period is used, failure is defined by acceptable
-performance Pa and maximal failure Pmax
+calculates severity Sev (see \href{https://www.researchgate.net/publication/326040304_Quantitative_Beschreibung_der_Resilienz_urbaner_Wassersysteme}{Matzinger et al. 2018})
+of failures for time series of performance P(t). 
+Entire time period is used, failure is defined by acceptable
+performance Pa and maximal failure Pmax.
 }
