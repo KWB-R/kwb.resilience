@@ -10,6 +10,6 @@ R package for assessing resilience for water systems.
 
 ## Documentation
 
-Release: [https:://kwb-r.github.io/KWB-R/kwb.resilience](https:://kwb-r.github.io/KWB-R/kwb.resilience)
+Release: [https://kwb-r.github.io/kwb.resilience](https://kwb-r.github.io/kwb.resilience)
 
-Development: [https:://kwb-r.github.io/KWB-R/kwb.resilience/dev](https:://kwb-r.github.io/KWB-R/kwb.resilience/dev)
+Development: [https://kwb-r.github.io/kwb.resilience/dev](https://kwb-r.github.io/kwb.resilience/dev)
