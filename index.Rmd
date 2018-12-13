@@ -5,7 +5,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/kwb.resilience)]()
 [![DOI](https://zenodo.org/badge/138212756.svg)](https://zenodo.org/badge/latestdoi/138212756)
 
-R package for assessing resilience for water systems
+R Package for the Quantification of Technical Resilience
 
 
 

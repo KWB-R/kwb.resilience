@@ -7,7 +7,7 @@
 
 # kwb.resilience
 
-R package for assessing resilience for water systems.
+R Package for the Quantification of Technical Resilience
 
 ## Installation
 

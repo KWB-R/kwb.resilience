@@ -1,7 +1,10 @@
 Package: kwb.resilience
 Version: 0.1.0
-Title: R Package for Assessing Resilience for Water Systems
-Description: R package for assessing resilience for water systems.
+Title: R Package for the Quantification of Technical Resilience
+Description: kwb.resilience allows quantification of a number of 
+    resilience indicators. Calculation requires a time series of
+    performance of a technical system, as well as values for acceptable
+    and worst case performance.
 Authors@R: 
     c(person(given = "Andreas",
              family = "Matzinger",
