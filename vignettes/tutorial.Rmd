@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 ```{r eval = FALSE}
 # install.packages("devtools")
 
-devtools::install_github("kwb-r/kwb.resilience", dependencies = TRUE, build_vignettes = TRUE)
+remotes::install_github("kwb-r/kwb.resilience", dependencies = TRUE, build_vignettes = TRUE)
 ```
 
 note: this will also install two handy KWB packages kwb.event and kwb.plot and their CRAN dependencies.
@@ -121,6 +121,8 @@ Let's plot the two failure events of scenario 4 (beginning and end is marked by 
 ```{r}
 
 # Plot Events
+library(kwb.utils)
+
 for (i in seq_len(nrow(events.S4))) {
   
   event <- events.S4[i, ]

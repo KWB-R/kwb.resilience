@@ -25,13 +25,13 @@ The package should make a starting point for a broader discussion of approaches 
 
 ## Acknowledgements
 
-The first version of kwb.resilience was developped at [Kompetenzzentrum Wasser Berlin](www.kompetenz-wasser.de) in the framework of the project [netWORKS 4](http://www.kompetenz-wasser.de/en/project/networks/), financed by the German Ministry of Education and Research in the program [FONA](http://www.fona.de). 
+The first version of kwb.resilience was developped at [Kompetenzzentrum Wasser Berlin](http://www.kompetenz-wasser.de) in the framework of the project [netWORKS 4](http://www.kompetenz-wasser.de/en/project/networks/), financed by the German Ministry of Education and Research in the program [FONA](http://www.fona.de). 
 
 
 
 ## How to use kwb.resilience
 
-Install the package using devtools as follows. For more information check documentation of single functions and the [tutorial](https://kwb-r.github.io/kwb.resilience/dev/articles/tutorial.html). 
+Install the package using devtools as follows. For more information check documentation of single functions and the [tutorial](articles/tutorial.html). 
 
 ```{r eval = FALSE}
 # install.packages("devtools")

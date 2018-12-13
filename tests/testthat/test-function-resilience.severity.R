@@ -4,10 +4,10 @@
 
 test_that("resilience.severity() works", {
 
-  expect_error(
-    kwb.resilience:::resilience.severity()
-    # argument "time_stamp" is missing, with no default
-  )
+    kwb.resilience:::resilience.severity(time_stamp = oxygen$timestamp, 
+                                          Pt = oxygen$S4_red_Imp_Surface, 
+                                          Pa = 2, 
+                                          Pmax = 0)
 
 })
 

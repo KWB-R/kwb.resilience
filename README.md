@@ -8,6 +8,13 @@
 
 R package for assessing resilience for water systems.
 
+## Installation
+
+```r
+#install.packages("remotes", repos = "https://cloud.r-project.org")
+remotes::install_github("KWB-R/kwb.resilience")
+```
+
 ## Documentation
 
 Release: [https://kwb-r.github.io/kwb.resilience](https://kwb-r.github.io/kwb.resilience)

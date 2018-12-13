@@ -4,10 +4,14 @@
 
 test_that("resilience.events() works", {
 
-  expect_error(
-    kwb.resilience:::resilience.events()
-    # argument "time_stamp" is missing, with no default
-  )
+
+    kwb.resilience:::resilience.events(time_stamp = oxygen$timestamp, 
+                                       Pt = oxygen$S4_red_Imp_Surface, 
+                                       Pa = 2, 
+                                       Pmax = 0, 
+                                       evtSepTime = 6 * 60 * 60, 
+                                       signalWidth = 15 * 60)
+
 
 })
 

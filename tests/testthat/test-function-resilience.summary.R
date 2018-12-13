@@ -4,10 +4,16 @@
 
 test_that("resilience.summary() works", {
 
-  expect_error(
-    kwb.resilience:::resilience.summary()
-    # argument "Pt" is missing, with no default
-  )
+  
+    kwb.resilience:::resilience.summary(
+      time_stamp = oxygen$timestamp, 
+      Pt = oxygen[, setdiff(names(oxygen), "timestamp")], 
+      Pa = 2, 
+      Pmax = 0, 
+      evtSepTime = 6 * 60 * 60, 
+      signalWidth = 15 * 60
+    )
+
 
 })
 
