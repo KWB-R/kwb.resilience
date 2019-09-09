@@ -7,7 +7,11 @@
 
 # kwb.resilience
 
-R Package for the Quantification of Technical Resilience
+**R Package for the Quantification of Technical Resilience**
+
+kwb.resilience allows quantification of a number of resilience indicators. 
+Calculation requires a time series of performance values of a technical system, 
+as well as values for acceptable and worst case performance.
 
 ## Installation
 

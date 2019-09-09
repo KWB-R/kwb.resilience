@@ -2,10 +2,10 @@
 ^_pkgdown\.yml$
 ^docs$
 ^.gitlab-ci\.yml$
-^.travis\.yml$
+^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^index\.Rmd$
+^index\.md$
 ^README\.md$

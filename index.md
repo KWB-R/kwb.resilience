@@ -5,8 +5,11 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/kwb.resilience)]()
 [![DOI](https://zenodo.org/badge/138212756.svg)](https://zenodo.org/badge/latestdoi/138212756)
 
-R Package for the Quantification of Technical Resilience
+**R Package for the Quantification of Technical Resilience**
 
+kwb.resilience allows quantification of a number of resilience indicators. 
+Calculation requires a time series of performance values of a technical system, 
+as well as values for acceptable and worst case performance.
 
 
 ## Installation
