@@ -25,7 +25,7 @@ The package should make a starting point for a broader discussion of approaches 
 
 ## Acknowledgements
 
-The first version of kwb.resilience was developped at [Kompetenzzentrum Wasser Berlin](http://www.kompetenz-wasser.de) in the framework of the project [netWORKS 4](http://www.kompetenz-wasser.de/en/project/networks/), financed by the German Ministry of Education and Research in the program [FONA](http://www.fona.de). 
+The first version of kwb.resilience was developped at [Kompetenzzentrum Wasser Berlin](http://www.kompetenz-wasser.de) in the framework of the project [netWORKS 4](http://www.kompetenz-wasser.de/en/project/networks4/), financed by the German Ministry of Education and Research in the program [FONA](http://www.fona.de). 
 
 
 
