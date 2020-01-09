@@ -14,7 +14,7 @@ as well as values for acceptable and worst case performance.
 
 ## Installation
 
-```{r echo = TRUE, eval = FALSE}
+```r
 ### Optionally: specify GitHub Personal Access Token (GITHUB_PAT)
 ### See here why this might be important for you:
 ### https://kwb-r.github.io/kwb.pkgbuild/articles/install.html#set-your-github_pat
